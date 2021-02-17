@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .book{
+            background-color: cornflowerblue;
+            width: 150px;
+            height: 200spx;
+            border: 10px;
+        }
+    </style>
+
+</head>
+<body>
+    <script>
+        const werkmetdata = (obj) => {
+            let uitvoer = "";
+            obj.forEach(boek => {
+                uitvoer += `<div class="book">`
+                uitvoer += `<h2>${boek.titel}</h2>`
+                uitvoer += `<img style="width: 100px"src="${boek.cover}" alt="${boek.titel}">`
+                uitvoer += `<p>Paginas: ${boek.paginas}</p>`
+                uitvoer += `</div>`
+                document.body.innerHTML = uitvoer
+            })
+        }
+
+
+
+
+        const url = "https://gist.githubusercontent.com/Theo-denBlanken/ed9551298618eb05ad01b838b3bf32b5/raw/c8c1fed36793bdd6fd69ba6ee815c263a61118c3/boekenTheo.json"
+        const aanvraag = new XMLHttpRequest();
+        aanvraag.onreadystatechange = () => {
+            if( aanvraag.readyState== 4 && aanvraag.status == 200){
+                console.log(aanvraag.responseText);
+                let data = JSON.parse(aanvraag.responseText)
+                console.log(data);
+                werkmetdata(data);
+            }
+            
+        }
+        aanvraag.open("GET", url, true);
+        aanvraag.send();
+    </script>
+</body>
+</html>
